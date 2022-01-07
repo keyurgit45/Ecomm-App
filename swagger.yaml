@@ -1,0 +1,88 @@
+openapi : 3.0.0
+info:
+  title : Tshirt Store API
+  description : LCO - a course to create API for ecomm store.
+  version : 1.0.0
+  contact : 
+    email : keyur4tech123@gmail.com
+
+servers:
+  - url : "http://localhost:4000/api/v1"
+    description : localhost server
+  - url : "https://tshirtstore.herokuapp.com/api/v1"
+    description : production server - not available yet
+
+components:
+  securitySchemes:
+    cookieAuth: 
+      type: apiKey
+      in: cookie
+      name: token
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+paths:
+  /signup:
+    post:
+      tags:
+        - User
+      summary: signup a new user. Required fields are name, email, password and photo.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: 
+                - name
+                - email
+                - password
+                - photo
+              properties:
+                name:
+                  type: string
+                  required: true
+                email:
+                  type: string
+                password:
+                  type: string
+                photo:
+                  in: formData
+                  type: file
+      responses:
+        200:
+          description: success
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  token:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      name: 
+                        type: string
+                      email: 
+                        type: string
+                      photo: 
+                        type: object
+                        properties:
+                          id: 
+                            type: string
+                          secure_url: 
+                            type: string
+                      role: 
+                        type: string
+                      _id: 
+                        type: string
+                      createdAt: 
+                        type: string
+
+              
+        400:
+          description : Bad Request
