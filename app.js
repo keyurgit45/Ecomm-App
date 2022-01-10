@@ -28,10 +28,12 @@ app.use(morgan("tiny"))
 const home  = require('./routes/home.js')
 const user = require('./routes/user.js')
 const product = require('./routes/product.js')
+const order = require('./routes/order.js')
 
 //router middleware
 app.use('/api/v1',home)
 app.use('/api/v1',user)
 app.use('/api/v1',product)
+app.use('/api/v1',order)
 
 module.exports = app
